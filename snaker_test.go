@@ -118,4 +118,23 @@ var _ = Describe("Snaker", func() {
 			Ω(SnakeToCamelLower("id_me_please")).To(Equal("idMePlease"))
 		})
 	})
+
+	Describe("RegisterInitialisms test", func() {
+		It("should add an initialism to the map", func() {
+			RegisterInitialisms("GUID")
+			Expect(SnakeToCamel("this_is_a_guid")).To(Equal("ThisIsAGUID"))
+		})
+
+		It("should add multiple initialisms to the map", func() {
+			RegisterInitialisms("VAT", "DBID")
+			Expect(SnakeToCamel("this_vat_is_a_dbid")).To(Equal("ThisVATIsADBID"))
+		})
+	})
+
+	Describe("RegisterExceptions test", func() {
+		It("should add exceptions to the map", func() {
+			RegisterExceptions("ids", "IDs", "guids", "GUIDs")
+			Expect(SnakeToCamel("these_ids_are_guids")).To(Equal("TheseIDsAreGUIDs"))
+		})
+	})
 })

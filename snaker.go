@@ -144,7 +144,23 @@ var commonInitialisms = map[string]bool{
 	"OAuth": true,
 }
 
+// RegisterInitialisms adds initialisms for capitalization
+func RegisterInitialisms(initialisms ...string) {
+	for _, candidate := range initialisms {
+		commonInitialisms[candidate] = true
+	}
+}
+
 // add exceptions here for things that are not automatically convertable
 var snakeToCamelExceptions = map[string]string{
 	"oauth": "OAuth",
+}
+
+// RegisterExceptions adds initialisms for capitalization. Arguments should be
+// in pairs, with the first being the snake form, and the second being camel.
+func RegisterExceptions(pairs ...string) {
+	for i := 0; i < len(pairs); i++ {
+		snakeToCamelExceptions[pairs[i]] = pairs[i+1]
+		i++
+	}
 }
